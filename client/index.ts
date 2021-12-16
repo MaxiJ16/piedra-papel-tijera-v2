@@ -14,7 +14,7 @@ import "./components/hands/computer-hands";
 import "./pages/home";
 
 (function () {
-  fetch("http://localhost:3000" + "/rtdb")
+  fetch("https://piedra-papel-tijera-mod6.herokuapp.com/" + "/rtdb")
     .then((res) => {
       return res.json();
     })
