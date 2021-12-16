@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Roboto+Slab:wght@600;700&display=swap");
+
+/* Todas las variables que declare acá van a estar accesibles en cualquier regla de css */
+:root {
+  --color-title: #009048;
+  --color-button: #006CFC;
+  --color-button-text: #D8FCFC;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-image: url("./assets/wallpaper.034d9032.svg");
+  background-size: cover;
+}
+
+.container {
+  font-family: "Roboto Slab", serif;
+  height: 100vh;
+}
