@@ -1,0 +1,30 @@
+.waitingOpp {
+  height: 86vh;
+  padding: 140px 31px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 769px) {
+  .waitingOpp {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 180px;
+  }
+}
+
+.waitingOpp-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 769px) {
+  .waitingOpp-header {
+    max-width: 650px;
+    margin: 0 auto;
+    padding-top: 31px;
+  }
+}
+

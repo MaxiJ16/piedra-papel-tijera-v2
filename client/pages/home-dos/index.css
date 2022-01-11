@@ -1,0 +1,54 @@
+.welcome {
+  width: 100%;
+  height: 100vh;
+  padding: 20px 27px 0;
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 769px) {
+  .welcome {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 80px;
+    gap: 40px;
+  }
+}
+
+.welcome__container-buttons {
+  display: none;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.welcome__title {
+  width: 285px;
+  margin: 0 auto;
+}
+
+@media (min-width: 769px) {
+  .welcome__title {
+    width: 350px;
+  }
+}
+
+.welcome__container-newGame {
+  display: none;
+}
+
+.newGame__form-label {
+  text-align: center;
+}
+
+.newGame__form-button {
+  width: 100%;
+  color: var(--color-button-text);
+  padding: 8px 0;
+  font-size: 45px;
+  font-family: "Odibee Sans", cursive;
+  background-color: var(--color-button);
+  border: 10px solid #001997;
+  border-radius: 10px;
+}

@@ -1,0 +1,27 @@
+.full-room {
+  width: 100%;
+  height: 100vh;
+  padding: 20px 27px 0;
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 769px) {
+  .full-room {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 80px;
+    gap: 40px;
+  }
+}
+
+.full-room-title {
+  width: 285px;
+  margin: 0 auto;
+}
+
+@media (min-width: 769px) {
+  .full-room-title {
+    width: 350px;
+  }
+}

@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+.results {
+  padding: 35px 20px;
+  display: grid;
+  gap: 20px;
+  height: 100vh;
+  width: 100%;
+}
+
+@media (min-width: 769px) {
+  .return {
+    height: 86px;
+    width: 400px;
+    margin: 0 auto;
+  }
+}
+
+.Ganaste {
+  background-color: rgba(136, 137, 73, 0.9);
+}
+
+.Perdiste {
+  background-color: rgba(137, 73, 73, 0.9);
+}
+
+.Empate {
+  background-color: rgb(29, 165, 154);
+}
+
+.star {
+  margin: 0 auto;
+  height: 300px;
+}
+
+.score {
+  width: 300px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 10px solid #000000;
+  border-radius: 10px;
+  padding-right: 10px;
+  padding-bottom: 28px;
+}
+
+.score-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.score-contain {
+  text-align: right;
+}

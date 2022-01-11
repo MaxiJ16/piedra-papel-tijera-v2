@@ -1,0 +1,35 @@
+.instructions {
+  height: 86vh;
+  padding: 70px 31px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 769px) {
+  .instructions {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 142px;
+  }
+  
+}
+
+.instructions-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 769px) {
+  .instructions-header {
+    max-width: 650px;
+    margin: 0 auto;
+    padding-top: 31px;
+  }
+  
+}
+
+.opponent-name {
+  color: #FF6442;
+}
