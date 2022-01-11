@@ -1,6 +1,6 @@
 type Jugada = "piedra" | "papel" | "tijera" | "";
 
-const API_BASE_URL = "http://localhost:3000" || "https://piedra-papel-tijera-mod6.herokuapp.com";
+const API_BASE_URL = "https://piedra-papel-tijera-mod6.herokuapp.com" || "http://localhost:3000"  ;
 
 import { rtdb } from "./rtdb";
 
