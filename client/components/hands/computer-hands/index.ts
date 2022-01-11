@@ -18,26 +18,39 @@ export class ComputerHands extends HTMLElement {
   }
 
   render() {
+    const cs = state.getState();
     const container = document.createElement("div");
     container.className = "container";
 
-    const computerChoice = Math.floor(Math.random() * (4 - 1) + 1);
+    let computerChoice = "";
 
-    if (computerChoice == 1) {
+    // si el jugador 1 no me aparece el nombre quiere decir que soy el jugador 2
+    // la jugada del jugador 1 contaría como la de la pc
+    if (cs.user1Name == "") {
+      computerChoice = cs.dataRtdb[0].move;
+    } else if (cs.user2Name == "") {
+      computerChoice = cs.dataRtdb[1].move;
+    }
+
+    state.listenRoom();
+    // const computerChoice = Math.floor(Math.random() * (4 - 1) + 1);
+    
+
+    if (computerChoice == "piedra") {
       container.innerHTML = `
       <img class="piedra" src=${piedraImg}>
       `;
-      state.setComputerMove("piedra");
-    } else if (computerChoice == 2) {
+      // state.setComputerMove("piedra");
+    } else if (computerChoice == "papel") {
       container.innerHTML = `
       <img class="papel" src=${papelImg}>
       `;
-      state.setComputerMove("papel");
-    } else if (computerChoice == 3) {
+      // state.setComputerMove("papel");
+    } else if (computerChoice == "tijera") {
       container.innerHTML = `
       <img class="tijera" src=${tijeraImg}>
       `;
-      state.setComputerMove("tijera");
+      // state.setComputerMove("tijera");
     }
 
     const style = document.createElement("style");

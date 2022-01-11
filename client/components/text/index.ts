@@ -1,6 +1,6 @@
 export class Text extends HTMLElement {
   shadow: ShadowRoot;
-  tags: string[] = ["h1", "h3", "h4", "p"];
+  tags: string[] = ["h1", "h3", "h4", "p", "h5"];
   tag: string = "p";
 
   constructor() {
@@ -30,7 +30,7 @@ export class Text extends HTMLElement {
       }
 
       @media(min-width: 769px){
-        h1{
+        h1 {
           font-size: 100px;
           line-height: 90px;
         }
@@ -47,15 +47,21 @@ export class Text extends HTMLElement {
         margin: 0;
       }
 
+      h5 {
+        font-size: 24px;
+        margin: 0;
+      }
+
       p {
-        font-size: 40px;
+        font-size: 35px;
         text-align: center;
         font-weigth: 600;
         margin: 0;
       }
+
       @media(min-width: 769px){
         p {
-          font-size: 50px;
+          font-size: 35px;
           width: 350px;
           margin: 0 auto;
         }

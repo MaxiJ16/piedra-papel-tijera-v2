@@ -1,29 +1,40 @@
+// importo el Router
 import { Router } from "@vaadin/router";
+import { state } from "../../state";
 
-class Welcome extends HTMLElement {
+class Home extends HTMLElement {
   // connectedCallback es el cb q tenemos que usar en los custom-elements para escribir de forma segura
   connectedCallback() {
     //aca seteamos al html
     this.render();
+    const selectYes = document.querySelector(".yes");
+    selectYes.addEventListener("click", () => {
+      const cs = state.getState();
+      cs.user1Name = "";
+      state.setState(cs);
+      Router.go("/register");
+    });
+    const selectNot = document.querySelector(".not");
+    selectNot.addEventListener("click", () => {
+      Router.go("/home");
+    });
   }
   render() {
     this.innerHTML = `
-      <section class="welcome">
-        <div class="welcome__title">
-          <my-text tag="h1">Piedra Papel ó Tijera</my-text>
-        </div> 
-
-        <div class="welcome__container-buttons"> 
-          <my-button class="welcome__button">Nuevo Juego</my-button>
-          <my-button class="welcome__button">Ingresar a una sala</my-button>
+      <section class="section">
+        <my-text variant="title">Bienvenido/a</my-text>
+        <my-text variant="subtitle">Eres nuevo?</my-text>
+        <div>
+          <input type="radio" id="yes" name="select" value="yes" class="yes">
+          <label for="yes">Si</label>
         </div>
-
-        <div class="welcome__hands">
-          <my-hands></my-hands> 
+        <div>
+          <input type="radio" id="not" name="select" value="not" class="not">
+          <label for="not">No</label>
         </div>
       </section>
     `;
   }
 }
 
-customElements.define("welcome-page", Welcome);
+customElements.define("home-page", Home);

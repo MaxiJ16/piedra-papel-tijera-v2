@@ -22,3 +22,25 @@ body {
   font-family: "Roboto Slab", serif;
   height: 100vh;
 }
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 45px;
+  text-align: center;
+  padding: 8px 0;
+  border: 10px solid #182460;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.button {
+  width: 100%;
+  color: var(--color-button-text);
+  padding: 8px 0;
+  font-size: 45px;
+  font-family: "Odibee Sans", cursive;
+  background-color: var(--color-button);
+  border: 10px solid #001997;
+  border-radius: 10px;
+}

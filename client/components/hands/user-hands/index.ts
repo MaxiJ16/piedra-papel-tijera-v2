@@ -18,6 +18,8 @@ export class UserHands extends HTMLElement {
   }
 
   render() {
+    const cs = state.getState();
+
     const div = document.createElement("div");
     div.className = "container";
     div.innerHTML = `
@@ -74,7 +76,11 @@ export class UserHands extends HTMLElement {
           display: none;
         }
       `;
-      state.setMove("piedra");
+      if (cs.user1Name == "") {
+        state.setMoveUser2("piedra");
+      } else if (cs.user2Name == "") {
+        state.setMoveUser1("piedra");
+      }
     });
 
     const papel = div.querySelector(".papel");
@@ -92,7 +98,11 @@ export class UserHands extends HTMLElement {
           display: none;
         }
       `;
-      state.setMove("papel");
+      if (cs.user1Name == "") {
+        state.setMoveUser2("papel");
+      } else if (cs.user2Name == "") {
+        state.setMoveUser1("papel");
+      }
     });
 
     const tijera = div.querySelector(".tijera");
@@ -110,7 +120,11 @@ export class UserHands extends HTMLElement {
           display: none;
         }
       `;
-      state.setMove("tijera");
+      if (cs.user1Name == "") {
+        state.setMoveUser2("tijera");
+      } else if (cs.user2Name == "") {
+        state.setMoveUser1("tijera");
+      }
     });
   }
 }

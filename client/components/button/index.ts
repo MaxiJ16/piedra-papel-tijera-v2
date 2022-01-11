@@ -25,9 +25,6 @@ export class Button extends HTMLElement {
       border-radius: 10px;
     }
 
-    
-    
-    
     `;
 
     this.shadow.appendChild(button);
