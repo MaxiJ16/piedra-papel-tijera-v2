@@ -1,6 +1,7 @@
 type Jugada = "piedra" | "papel" | "tijera" | "";
 
-const API_BASE_URL = "https://piedra-papel-tijera-mod6.herokuapp.com" || "http://localhost:3000"  ;
+const API_BASE_URL =
+  "https://piedra-papel-tijera-mod6.herokuapp.com" || "http://localhost:3000";
 
 import { rtdb } from "./rtdb";
 
@@ -30,14 +31,13 @@ const state = {
   },
   listeners: [],
   init() {
-    const localData = localStorage.getItem("state");
-    const dataParse = JSON.parse(localData);
+    const lastStorage = JSON.parse(sessionStorage.getItem("state"));
 
-    if (dataParse == null) {
-      const currentState = this.getState();
-      this.setState(currentState);
+    if (lastStorage) {
+      this.setState(lastStorage);
     } else {
-      this.setState(dataParse);
+      const cs = this.getState();
+      this.setState(cs);
     }
   },
   getState() {
@@ -207,8 +207,7 @@ const state = {
       // primero lo tenemos que mapear
       const currentsList = map(currentGameFromServer.currentGame);
       cs.dataRtdb = currentsList;
-      console.log("soy el listen room");
-      
+
       this.setState(currentState);
     });
   },
@@ -329,7 +328,7 @@ const state = {
     for (const cb of this.listeners) {
       cb();
     }
-    localStorage.setItem("state", JSON.stringify(newState));
+    sessionStorage.setItem("state", JSON.stringify(newState));
     console.log("Soy el state, he cambiado", this.data);
   },
   whoWins(user1Play: Jugada, user2Play: Jugada) {

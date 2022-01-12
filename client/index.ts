@@ -17,7 +17,6 @@ import "./pages/home";
 import "./pages/home-dos";
 import "./pages/register";
 import "./pages/access-room"
-import "./pages/instructions";
 import "./pages/share-code";
 import "./pages/waiting-opp";
 import "./pages/play";

@@ -49,7 +49,7 @@ class AccesRoom extends HTMLElement {
             console.error("Some player is not connected");
           }
           if (cs.dataRtdb[0].online == true && cs.dataRtdb[1].online == true) {
-            Router.go("/instructions");
+            Router.go("/waiting-opp");
           }
         });
       });

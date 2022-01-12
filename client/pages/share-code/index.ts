@@ -12,7 +12,7 @@ class ShareCode extends HTMLElement {
     state.listenRoom();
     state.subscribe(() => {
       if (cs.dataRtdb[0].online == true && cs.dataRtdb[1].online == true) {
-        Router.go("/instructions");
+        Router.go("/waiting-opp");
       }
     });
   }

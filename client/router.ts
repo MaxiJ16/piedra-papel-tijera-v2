@@ -7,7 +7,6 @@ router.setRoutes([
   { path: "/home", component: "home-dos-page" },
   { path: "/access-room", component: "access-room-page" },
   { path: "/register", component: "register-page" },
-  { path: "/instructions", component: "instructions-page" },
   { path: "/share-code", component: "share-code" },
   { path: "/waiting-opp", component: "waiting-comp" },
   { path: "/play", component: "play-page" },
