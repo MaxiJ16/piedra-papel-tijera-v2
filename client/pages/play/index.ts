@@ -4,7 +4,6 @@ class Play extends HTMLElement {
   connectedCallback() {
     this.render();
   }
-  //<my-countdown></my-countdown>
   render() {
     this.innerHTML = `
     <section class="play">
@@ -12,6 +11,7 @@ class Play extends HTMLElement {
         <computer-hands class="computer-choices"></computer-hands>
       </div>
 
+      <my-countdown></my-countdown>
 
       <div class="play__hands">
         <user-hands></user-hands>
