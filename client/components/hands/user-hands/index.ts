@@ -28,6 +28,8 @@ export class UserHands extends HTMLElement {
     <img class="tijera" src=${tijeraImg}>
     `;
 
+    
+
     const style = document.createElement("style");
     style.innerHTML = `
       .container {

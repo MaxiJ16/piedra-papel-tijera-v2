@@ -4,7 +4,7 @@ const piedraImg = require("url:../../../../client/assets/piedra.png");
 const papelImg = require("url:../../../../client/assets/papel.png");
 const tijeraImg = require("url:../../../../client/assets/tijera.png");
 
-export class ComputerHands extends HTMLElement {
+export class Play2Hands extends HTMLElement {
   shadow: ShadowRoot;
   type: string;
 
@@ -22,32 +22,30 @@ export class ComputerHands extends HTMLElement {
     const container = document.createElement("div");
     container.className = "container";
 
-    let computerChoice = "";
+    let userChoice = "";
 
-    // si el jugador 1 no me aparece el nombre quiere decir que soy el jugador 2
-    // la jugada del jugador 1 contaría como la de la pc
     
       if (cs.user1Name == "") {
-        computerChoice = cs.dataRtdb[0].move;
+        userChoice = cs.dataRtdb[1].move;
       } else if (cs.user2Name == "") {
-        computerChoice = cs.dataRtdb[1].move;
+        userChoice = cs.dataRtdb[0].move;
       }
     
     
 
     // const computerChoice = Math.floor(Math.random() * (4 - 1) + 1);
 
-    if (computerChoice == "piedra") {
+    if (userChoice == "piedra") {
       container.innerHTML = `
         <img class="piedra" src=${piedraImg}>
         `;
       // state.setComputerMove("piedra");
-    } else if (computerChoice == "papel") {
+    } else if (userChoice == "papel") {
       container.innerHTML = `
         <img class="papel" src=${papelImg}>
         `;
       // state.setComputerMove("papel");
-    } else if (computerChoice == "tijera") {
+    } else if (userChoice == "tijera") {
       container.innerHTML = `
         <img class="tijera" src=${tijeraImg}>
         `;
@@ -57,7 +55,6 @@ export class ComputerHands extends HTMLElement {
     const style = document.createElement("style");
     style.innerHTML = `
       .piedra, .papel, .tijera {
-        transform:rotate(180deg);
         height: 300px;
       }
       @media(min-width: 1200px){
@@ -71,4 +68,4 @@ export class ComputerHands extends HTMLElement {
     this.shadow.appendChild(container);
   }
 }
-customElements.define("computer-hands", ComputerHands);
+customElements.define("play2-hands", Play2Hands);

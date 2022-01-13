@@ -9,6 +9,7 @@ import map from "lodash/map";
 
 const state = {
   data: {
+    registerMessage: "",
     user1Name: "",
     user2Name: "",
     user1Id: "",
@@ -72,6 +73,7 @@ const state = {
         })
         .then((data) => {
           console.log(data);
+          cs.registerMessage = data.message;
 
           this.setState(cs);
         });
@@ -288,12 +290,12 @@ const state = {
 
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
 
-    if (cs.user1Name && cs.user1Id) {
+    if (cs.user1Name) {
       roomsRef.update({
         user1: {
-          name: cs.user2Name,
+          name: cs.user1Name,
           online: true,
-          userId: cs.user2Id,
+          userId: cs.user1Id,
           start: true,
           move,
         },
@@ -308,7 +310,7 @@ const state = {
 
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
 
-    if (cs.user2Name && cs.user2Id) {
+    if (cs.user2Name) {
       roomsRef.update({
         user2: {
           name: cs.user2Name,
@@ -351,10 +353,10 @@ const state = {
     let results = "";
 
     if (gane) {
-      cs.history.user++;
+      cs.history.user1++;
       results = "Ganaste";
     } else if (perdi) {
-      cs.history.userTwo++;
+      cs.history.user2++;
       results = "Perdiste";
     } else {
       results = "Empate";
@@ -377,6 +379,37 @@ const state = {
       });
 
     return results;
+  },
+  restart(){
+    const cs = state.getState()
+    const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame")
+
+    if (cs.user2Name) {
+      roomsRef.update({
+        user2: {
+          name: cs.user2Name,
+          online: true,
+          userId: cs.user2Id,
+          start: false,
+          move: "",
+        },
+      });
+      cs.currentGame.user2Move = "";
+    }
+
+    if (cs.user1Name) {
+      roomsRef.update({
+        user1: {
+          name: cs.user1Name,
+          online: true,
+          userId: cs.user1Id,
+          start: false,
+          move: "",
+        },
+      });
+      cs.currentGame.user1Move = "";
+    }
+    this.setState(cs);
   },
   subscribe(callback: (any) => any) {
     this.listeners.push(callback);

@@ -4,28 +4,29 @@ import { Router } from "@vaadin/router";
 class Results extends HTMLElement {
   connectedCallback() {
     this.render();
-
+    const cs = state.getState();
+  }
+  addListener() {
     const buttonEl = document.querySelector(".return");
 
     buttonEl.addEventListener("click", () => {
-      // state.setMove("");
-      Router.go("/instructions");
+      state.restart();
+      Router.go("/waiting-opp");
     });
   }
-
   render() {
     const cs = state.getState();
     const moveUser1 = cs.dataRtdb[0].move;
     const moveUser2 = cs.dataRtdb[1].move;
+
     let result: string = state.whoWins(moveUser1, moveUser2);
 
-    if (cs.user1Name == "") {
-      if (result == "perdiste") {
-        result = "ganaste";
-      } else if (result == "ganaste") {
-        result = "perdiste";
-      }
+    if (cs.user2Name && result == "Ganaste") {
+      result = "Perdiste";
+    } else if (cs.user2Name && result == "Perdiste") {
+      result = "Ganaste";
     }
+
     this.innerHTML = `
       <div class="results result">
       <my-stars tag="${result}" class="star"></my-stars>
@@ -41,6 +42,7 @@ class Results extends HTMLElement {
       <my-button class="return">Volver a Jugar</my-button>
       </div>
     `;
+    this.addListener();
   }
 }
 

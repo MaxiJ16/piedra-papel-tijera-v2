@@ -6,7 +6,8 @@ class HomeDos extends HTMLElement {
   connectedCallback() {
     //aca seteamos al html
     this.render();
-    const cs = state.getState();
+  }
+  listener() {
     const newGameButtonEl = document.querySelector(".welcome__button-newGame");
     const enterRoomButtonEl = document.querySelector(
       ".welcome__button-enterRoom"
@@ -76,6 +77,7 @@ class HomeDos extends HTMLElement {
         </div>
       </section>
     `;
+    this.listener();
   }
 }
 

@@ -12,6 +12,7 @@ import "./components/countdown";
 import "./components/hands";
 import "./components/hands/user-hands";
 import "./components/hands/computer-hands";
+import "./components/hands/play2-hands-users";
 //pages
 import "./pages/home";
 import "./pages/home-dos";
@@ -20,6 +21,7 @@ import "./pages/access-room"
 import "./pages/share-code";
 import "./pages/waiting-opp";
 import "./pages/play";
+import "./pages/play-dos";
 import "./pages/results";
 import "./pages/full-room";
 

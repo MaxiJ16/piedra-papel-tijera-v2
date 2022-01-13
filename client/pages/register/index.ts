@@ -7,11 +7,27 @@ class RegisterPage extends HTMLElement {
   connectedCallback() {
     //aca seteamos al html
     this.render();
+    const messageFromRegister = document.querySelector(
+      ".messageFromRegister"
+    ) as any;
 
+    state.subscribe(() => {
+      const cs = state.getState();
+      messageFromRegister.textContent = cs.registerMessage;
+      messageFromRegister.style.display = "initial";
+
+      if (messageFromRegister.textContent == "Usuario registrado con éxito") {
+        setTimeout(() => {
+          Router.go("/home");
+        }, 2000);
+      }
+    });
+  }
+  listeners() {
     //como ya ejecutamos el render ya tengo todo montado por eso
     //buscamos el formulario del render
     const form = this.querySelector(".form");
-    const msg = this.querySelector(".messageFromRegister") as any;
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const target = e.target as any;
@@ -19,13 +35,8 @@ class RegisterPage extends HTMLElement {
 
       state.setUser1Name(name);
       state.register();
-      msg.style.display = "initial";
-      setTimeout(() => {
-        Router.go("/home");
-      }, 3000);
     });
   }
-
   render() {
     this.innerHTML = `
       <section class="section">
@@ -37,9 +48,10 @@ class RegisterPage extends HTMLElement {
           </div>
           <button class="button"><my-text variant="subtitle">Comenzar</my-text></button>
         </form>
-        <span class="messageFromRegister">Registrado con éxito! Redirigiendo..</span>
+        <span class="messageFromRegister"></span>
       </section>
     `;
+    this.listeners();
   }
 }
 

@@ -71,7 +71,7 @@ app.post("/signup", (req, res) => {
       } else {
         res.status(400).json({
           // RQMrXOlQGnNDBCwf0Yul
-          message: "Este usuario ya existe.",
+          message: "Este usuario ya existe, prueba otro nombre",
         });
       }
     });
