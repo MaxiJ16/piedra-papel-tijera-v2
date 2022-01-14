@@ -6,6 +6,10 @@ class PlayDos extends HTMLElement {
     const cs = state.getState();
 
     this.render();
+    
+    setTimeout(() => {
+      Router.go("/results");
+    }, 2000);
   }
   render() {
     this.innerHTML = `

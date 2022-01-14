@@ -4,14 +4,21 @@ import { Router } from "@vaadin/router";
 class Results extends HTMLElement {
   connectedCallback() {
     this.render();
-    const cs = state.getState();
   }
   addListener() {
     const buttonEl = document.querySelector(".return");
 
     buttonEl.addEventListener("click", () => {
-      state.restart();
-      Router.go("/waiting-opp");
+      const cs = state.getState();
+
+      if (cs.user2Name == "") {
+        state.restartUser1();
+        Router.go("/waiting-opp");
+      }
+      if (cs.user1Name == "") {
+        state.restartUser2();
+        Router.go("/waiting-opp");
+      }
     });
   }
   render() {

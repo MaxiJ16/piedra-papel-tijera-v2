@@ -9,7 +9,7 @@ class Play extends HTMLElement {
 
     setTimeout(() => {
       Router.go("/play-dos");
-    }, 5000);
+    }, 4200);
   }
 
   render() {

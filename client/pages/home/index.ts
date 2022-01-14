@@ -7,6 +7,7 @@ class Home extends HTMLElement {
   connectedCallback() {
     //aca seteamos al html
     this.render();
+    
     const selectYes = document.querySelector(".yes");
     selectYes.addEventListener("click", () => {
       const cs = state.getState();

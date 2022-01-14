@@ -380,9 +380,29 @@ const state = {
 
     return results;
   },
-  restart(){
-    const cs = state.getState()
-    const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame")
+  restartUser1() {
+    const cs = state.getState();
+
+    const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
+    
+    if (cs.user1Name) {
+      roomsRef.update({
+        user1: {
+          name: cs.user1Name,
+          online: true,
+          userId: cs.user1Id,
+          start: false,
+          move: "",
+        },
+      });
+      cs.currentGame.user1Move = "";
+    }
+    this.setState(cs);
+  },
+  restartUser2() {
+    const cs = state.getState();
+
+    const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
 
     if (cs.user2Name) {
       roomsRef.update({
@@ -395,19 +415,6 @@ const state = {
         },
       });
       cs.currentGame.user2Move = "";
-    }
-
-    if (cs.user1Name) {
-      roomsRef.update({
-        user1: {
-          name: cs.user1Name,
-          online: true,
-          userId: cs.user1Id,
-          start: false,
-          move: "",
-        },
-      });
-      cs.currentGame.user1Move = "";
     }
     this.setState(cs);
   },
