@@ -4,21 +4,24 @@ import { Router } from "@vaadin/router";
 class Results extends HTMLElement {
   connectedCallback() {
     this.render();
-  }
-  addListener() {
+    const cs = state.getState();
+    
     const buttonEl = document.querySelector(".return");
 
     buttonEl.addEventListener("click", () => {
-      const cs = state.getState();
-
       if (cs.user2Name == "") {
         state.restartUser1();
-        Router.go("/waiting-opp");
       }
       if (cs.user1Name == "") {
         state.restartUser2();
-        Router.go("/waiting-opp");
       }
+
+      state.subscribe(() => {
+        const cs = state.getState();
+        if (cs.dataRtdb[0].start == false && cs.dataRtdb[1].start == false) {
+          Router.go("/waiting-opp");
+        }
+      })
     });
   }
   render() {
@@ -49,7 +52,6 @@ class Results extends HTMLElement {
       <my-button class="return">Volver a Jugar</my-button>
       </div>
     `;
-    this.addListener();
   }
 }
 
