@@ -380,11 +380,11 @@ const state = {
 
     return results;
   },
-  restartUser1() {
+  restart() {
     const cs = state.getState();
 
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
-    
+
     if (cs.user1Name) {
       roomsRef.update({
         user1: {
@@ -395,14 +395,7 @@ const state = {
           move: "",
         },
       });
-      cs.currentGame.user1Move = "";
     }
-    this.setState(cs);
-  },
-  restartUser2() {
-    const cs = state.getState();
-
-    const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
 
     if (cs.user2Name) {
       roomsRef.update({
@@ -414,8 +407,9 @@ const state = {
           move: "",
         },
       });
-      cs.currentGame.user2Move = "";
     }
+    cs.currentGame.user1Move = "";
+    cs.currentGame.user2Move = "";
     this.setState(cs);
   },
   subscribe(callback: (any) => any) {
