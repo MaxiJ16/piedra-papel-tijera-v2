@@ -1,11 +1,5 @@
 import { state } from "../../state";
 import { Router } from "@vaadin/router";
-// state.subscribe(() => {
-//   const cs = state.getState();
-//   if (cs.dataRtdb[0].start == false && cs.dataRtdb[1].start == false) {
-//
-//   }
-// })
 
 class Results extends HTMLElement {
   connectedCallback() {
@@ -18,14 +12,12 @@ class Results extends HTMLElement {
     buttonEl.addEventListener("click", () => {
       if (cs.user2Name == "") {
         state.restart();
-
-        console.log("Jugador 1 presiono");
+        Router.go("/waiting-opp")
       }
 
       if (cs.user1Name == "") {
         state.restart();
-
-        console.log("Jugador 2 presiono");
+        Router.go("/waiting-opp")
       }
     });
   }

@@ -3,8 +3,6 @@ import { state } from "../../state";
 
 class Play extends HTMLElement {
   connectedCallback() {
-    const cs = state.getState();
-
     this.render();
 
     setTimeout(() => {

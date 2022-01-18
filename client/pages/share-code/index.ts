@@ -6,12 +6,11 @@ class ShareCode extends HTMLElement {
     this.render();
     const cs = state.getState();
 
-    if (window.location.pathname == "/share-code") {
-      state.setPlayer1ValuesRtdb();
-    }
+    state.setPlayer1ValuesRtdb();
     state.listenRoom();
+    
     state.subscribe(() => {
-      if (cs.dataRtdb[0].online == true && cs.dataRtdb[1].online == true) {
+      if (cs.dataRtdb[0].online == true && cs.dataRtdb[1].online == true && window.location.pathname == "/share-code") {
         Router.go("/waiting-opp");
       }
     });

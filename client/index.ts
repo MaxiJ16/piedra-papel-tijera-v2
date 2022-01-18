@@ -27,7 +27,6 @@ import "./pages/full-room";
 
 (function () {
   state.init()
-  
 })();
 // const chatroomsRef = rtdb.ref("/rooms/m69D9nOQmh_gLITXJUaXC")
 //   chatroomsRef.on("value", (snapshot) => {

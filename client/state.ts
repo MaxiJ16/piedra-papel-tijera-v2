@@ -375,7 +375,6 @@ const state = {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
       });
 
     return results;
