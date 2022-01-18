@@ -3,9 +3,7 @@ import { Router } from "@vaadin/router";
 import { state } from "../../state";
 
 class RegisterPage extends HTMLElement {
-  // connectedCallback es el cb q tenemos que usar en los custom-elements para escribir de forma segura
   connectedCallback() {
-    //aca seteamos al html
     this.render();
     const messageFromRegister = document.querySelector(
       ".messageFromRegister"
@@ -18,23 +16,21 @@ class RegisterPage extends HTMLElement {
 
       if (messageFromRegister.textContent == "Usuario registrado con éxito") {
         setTimeout(() => {
-          Router.go("/home");
+          if(location.pathname == "/register"){
+            Router.go("/home");
+          }
         }, 2000);
       }
     });
   }
   listeners() {
-    //como ya ejecutamos el render ya tengo todo montado por eso
-    //buscamos el formulario del render
     const form = this.querySelector(".form");
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const target = e.target as any;
       const name = target.nombre.value;
-
-      state.setUser1Name(name);
-      state.register();
+      state.register(name);
     });
   }
   render() {

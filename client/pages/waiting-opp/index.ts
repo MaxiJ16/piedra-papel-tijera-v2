@@ -27,7 +27,7 @@ class WaitingOpp extends HTMLElement {
     state.subscribe(() => {
       const cs = state.getState();
 
-      if ( location.pathname == "/waiting-opp" && cs.dataRtdb[0].start == false || cs.dataRtdb[1].start == false) {
+      if (location.pathname == "/waiting-opp" && cs.dataRtdb[0].start == false || cs.dataRtdb[1].start == false) {
         console.error("Falta que el otro jugador presione start");
       }
       if (cs.dataRtdb[0].start == true && cs.dataRtdb[1].start == true && location.pathname == "/waiting-opp") {

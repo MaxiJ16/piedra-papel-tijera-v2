@@ -1,7 +1,7 @@
 import { Router } from "@vaadin/router";
 import { state } from "../../state";
 
-class PlayDos extends HTMLElement {
+class PlayHands extends HTMLElement {
   connectedCallback() {
     const cs = state.getState();
 
@@ -28,4 +28,4 @@ class PlayDos extends HTMLElement {
   }
 }
 
-customElements.define("play-pagedos", PlayDos);
+customElements.define("play-hands", PlayHands);

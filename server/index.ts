@@ -16,11 +16,6 @@ app.use(express.json());
 app.use(express.static("dist"));
 app.use(cors());
 
-//zona de pruebas
-
-const collection = firestore.collection("prueba");
-const pruebaDoc = collection.doc("prueba");
-const refPrueba = rtdb.ref("Prueba");
 
 app.get("/env", (req, res) => {
   res.json({
@@ -28,19 +23,6 @@ app.get("/env", (req, res) => {
   });
 });
 
-app.get("/", (req, res) => {
-  pruebaDoc.get().then((snap) => {
-    const pruebaData = snap.data();
-    res.send(pruebaData);
-  });
-});
-
-app.get("/rtdb", (req, res) => {
-  refPrueba.on("value", (snapshot) => {
-    const data = snapshot.val();
-    res.json(data);
-  });
-});
 
 // zona de producción
 
@@ -70,7 +52,6 @@ app.post("/signup", (req, res) => {
           });
       } else {
         res.status(400).json({
-          // RQMrXOlQGnNDBCwf0Yul
           message: "Este usuario ya existe, prueba otro nombre",
         });
       }
@@ -78,8 +59,6 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/auth", (req, res) => {
-  // recibimos el email del body
-  // esto es = a => const email = req.body.email
   const { nombre } = req.body;
   // una vez que lo tenemos buscamos nuevamente en la userCollection
   userCollection
@@ -93,7 +72,7 @@ app.post("/auth", (req, res) => {
           message: "user not found",
         });
       } else {
-        // si no está vacío y encontró el email le mostramos el registro que encontró en la búsqueda
+        // si no está vacío y encontró el nombre le mostramos el registro que encontró en la búsqueda
         res.json({
           //searchResponse devuelve un array, entonces debemos buscarlo en la posición 0
           id: searchResponse.docs[0].id,
@@ -110,7 +89,6 @@ app.post("/rooms", (req, res) => {
   // si no tenemos un userId no podemos crear una nueva room
   const { userId } = req.body;
   // dentro de la userCollection buscamos un doc que tenga el userId que nos acaban de pasar
-  // el get termina yendo a la base de datos a buscar ese documento y devuelve una promesa
   userCollection
     // para que no haya errores vamos a parsear a un string lo que nos pasen como userId
     .doc(userId.toString())
@@ -120,7 +98,7 @@ app.post("/rooms", (req, res) => {
       if (doc.exists) {
         // creamos dentro de la rtdb una referencia a rooms/(idcomplejo)
         const roomRef = rtdb.ref("rooms/" + nanoid());
-        // este set inicializa una room con una propiedad messages(que es un array vacio) y owner(que tiene el userid que nos acaban de mandar de un user válido)
+        // este set inicializa una room con estas propiedades
         roomRef
           .set({
             currentGame: {
@@ -192,11 +170,9 @@ app.get("/rooms/:roomId", (req, res) => {
   const { userId } = req.query;
 
   userCollection
-    // para que no haya errores vamos a parsear a un string lo que nos pasen como userId
     .doc(userId.toString())
     .get()
     .then((doc) => {
-      // si ese documento que buscamos existe
       if (doc.exists) {
         // buscamos en firestore en la roomCollection
         // le decimos a la roomCollection que queremos el doc que tenga este id
@@ -255,15 +231,9 @@ app.post("/rooms/:roomId", (req, res) => {
     });
 });
 
-// esto es un handler, un manejador
-//usamos get porque es el método que usa el navegador
-// configuramos para que cualquier ruta que no sean estas de las api, ni las rutas que están en dist
-// también sea el index.html, * es igual a cualquier ruta
 
-
+// le indicamos una ruta especial al archivo
 app.get("*", (req, res) => {
-  // le indicamos una ruta especial al archivo
-  // __dirname es la carpeta donde estoy parado ahora, sería room-dos y le concatenamos /dist/index.html que es el archivo que maneja todas mis rutas
   const pathResolve = path.resolve("", "dist/index.html");
   res.sendFile(pathResolve);
 });

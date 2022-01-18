@@ -10,7 +10,7 @@ router.setRoutes([
   { path: "/share-code", component: "share-code" },
   { path: "/waiting-opp", component: "waiting-comp" },
   { path: "/play", component: "play-page" },
-  { path: "/play-dos", component: "play-pagedos" },
+  { path: "/play-hands", component: "play-hands" },
   { path: "/results", component: "results-page" },
   { path: "/full-room", component: "full-room-page" },
 ]);

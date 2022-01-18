@@ -2,17 +2,15 @@ import { Router } from "@vaadin/router";
 import { state } from "../../state";
 
 class AccesRoom extends HTMLElement {
-  // connectedCallback es el cb q tenemos que usar en los custom-elements para escribir de forma segura
   connectedCallback() {
-    //aca seteamos al html
     this.render();
     const cs = state.getState();
 
     const enterRoomForm = document.querySelector(".enterRoom__form") as any;
-    const enterSecondPlayerForm = document.querySelector(
-      ".enterSecondPlayer__form"
-    ) as any;
+    const enterSecondPlayerForm = document.querySelector(".enterSecondPlayer__form") as any;
 
+    const errorEl = document.querySelector(".error") as any;
+    const errorbtn = document.querySelector(".error-btn") as any;
     // formulario de segundo jugador
 
     enterSecondPlayerForm.addEventListener("submit", (e) => {
@@ -23,10 +21,22 @@ class AccesRoom extends HTMLElement {
       state.setUser2Name(nameUser2);
       state.signInUser2((err) => {
         if (err) console.error("hubo un error en el signIn");
+        enterSecondPlayerForm.style.display = "none";
+        enterRoomForm.style.display = "initial";
       });
 
-      enterSecondPlayerForm.style.display = "none";
-      enterRoomForm.style.display = "initial";
+      if(!cs.user2Id || cs.user2Id == undefined && location.pathname == "/access-room" && cs.registerMessage == "user not found"){
+        enterSecondPlayerForm.style.display = "none";
+        errorEl.style.display = "initial";
+        errorbtn.style.display = "initial";
+      }
+
+      errorbtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (location.pathname == "/access-room") {
+          Router.go("/register");
+        }
+      });
     });
 
     // formulario de ingresar a una sala
@@ -69,6 +79,9 @@ class AccesRoom extends HTMLElement {
             <input class="input enterSecondPlayer-input" required name="nombre"/>
             <button class="enterSecondPlayer-button button">Empezar</button>
           </form>
+
+          <my-text class="error">No hay un usuario registrado con ese nombre</my-text>
+          <my-button class="error-btn">Ir al registro</my-button>
 
           <form class="enterRoom__form">
             <input class="input enterRoom__form-input" placeholder="código" name="roomId">

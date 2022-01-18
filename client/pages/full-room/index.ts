@@ -1,9 +1,7 @@
 import { Router } from "@vaadin/router";
 
 class FullRoom extends HTMLElement {
-  // connectedCallback es el cb q tenemos que usar en los custom-elements para escribir de forma segura
   connectedCallback() {
-    //aca seteamos al html
     this.render();
   }
   render() {

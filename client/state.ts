@@ -54,38 +54,29 @@ const state = {
     cs.user2Name = nameUser2;
     this.setState(cs);
   },
-
-  register() {
+  register(name: string) {
     const cs = this.getState();
-    if (cs.user1Name) {
-      fetch(API_BASE_URL + "/signup", {
-        // lo configuramos para hacer el método post
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ nombre: cs.user1Name }),
-      })
-        .then((res) => {
-          // esto es una resp. de fetch así que hay que hacer un return de res.json
-          // y recién ahí puedo hacer un .then más con la data que queremos
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          cs.registerMessage = data.message;
 
-          this.setState(cs);
-        });
-    }
+    fetch(API_BASE_URL + "/signup", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ nombre: name }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        cs.registerMessage = data.message;
+        this.setState(cs);
+      });
   },
   signIn(callback) {
     const cs = this.getState();
-    // si el current State tiene un email vamos a authenticarlo
     if (cs.user1Name) {
-      // el auth nos devuelve el id que tiene ese email
       fetch(API_BASE_URL + "/auth", {
-        // lo configuramos para hacer el método post
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -93,31 +84,23 @@ const state = {
         body: JSON.stringify({ nombre: cs.user1Name }),
       })
         .then((res) => {
-          // esto es una resp. de fetch así que hay que hacer un return de res.json
-          // y recién ahí puedo hacer un .then más con la data que queremos
           return res.json();
         })
         .then((data) => {
-          // data nos va a traer el id que nos devuelve /auth cuando el user está registrado
+          cs.registerMessage = data.message;
           cs.user1Id = data.id;
           this.setState(cs);
-          // cuando se termine de setear el state voy a invocar al callback, sin error
           callback();
         });
     } else {
-      // si no existe el email
       console.error("No hay un nombre en el state");
-      // invoco el callback cuando hubo un error
       callback();
     }
   },
   signInUser2(callback) {
     const cs = this.getState();
-    // si el current State tiene un email vamos a authenticarlo
     if (cs.user2Name) {
-      // el auth nos devuelve el id que tiene ese email
       fetch(API_BASE_URL + "/auth", {
-        // lo configuramos para hacer el método post
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -125,32 +108,24 @@ const state = {
         body: JSON.stringify({ nombre: cs.user2Name }),
       })
         .then((res) => {
-          // esto es una resp. de fetch así que hay que hacer un return de res.json
-          // y recién ahí puedo hacer un .then más con la data que queremos
           return res.json();
         })
         .then((data) => {
-          // data nos va a traer el id que nos devuelve /auth cuando el user está registrado
+          cs.registerMessage = data.message;
           cs.user2Id = data.id;
           this.setState(cs);
-          // cuando se termine de setear el state voy a invocar al callback, sin error
           callback();
         });
     } else {
-      // si no existe el email
       console.error("No hay un nombre en el state");
-      // invoco el callback cuando hubo un error
       callback();
     }
   },
-  // va a hacer el método del nuevo room y nosotros tenemos que hacer el de room existente porque es basicamente igual
-  //nuestro estado le pide al server un nuevo room
   askNewRoom(callback?) {
     const cs = this.getState();
     // si tiene userId
     if (cs.user1Id) {
       fetch(API_BASE_URL + "/rooms", {
-        // lo configuramos para hacer el método post
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -176,7 +151,6 @@ const state = {
       console.error("no hay userId");
     }
   },
-  // el callback es porque le vamos a tener que avisar al exterior que esto ya terminó para que después pueda empezar a intercambiar mensajes
   accessToRoom(callback?) {
     const cs = this.getState();
     const roomId = cs.roomId;
@@ -185,7 +159,6 @@ const state = {
     // el método get es por defecto así que no hace falta aclarar el method
     fetch(API_BASE_URL + "/rooms/" + roomId + "?userId=" + userId)
       .then((res) => {
-        // pasamos la res de la api a json, sino es un texto
         return res.json();
       })
       .then((data) => {
@@ -203,9 +176,8 @@ const state = {
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId);
     roomsRef.on("value", (snapshot) => {
       const currentState = this.getState();
-      // cuando message recibe un nuevo valor recibimos el snapshot y lo guardamos en messagesFromServer
       const currentGameFromServer = snapshot.val();
-      // cada vez que haya un cambio vamos a traernos del server solo la parte de messages y la vamos a guardar en el state
+      // cada vez que haya un cambio vamos a traernos del server solo la parte de currentGameFromServer y la vamos a guardar en el state
       // primero lo tenemos que mapear
       const currentsList = map(currentGameFromServer.currentGame);
       cs.dataRtdb = currentsList;
@@ -296,7 +268,7 @@ const state = {
           name: cs.user1Name,
           online: true,
           userId: cs.user1Id,
-          start: true,
+          start: false,
           move,
         },
       });
@@ -316,7 +288,7 @@ const state = {
           name: cs.user2Name,
           online: true,
           userId: cs.user2Id,
-          start: true,
+          start: false,
           move,
         },
       });
@@ -374,8 +346,7 @@ const state = {
       .then((res) => {
         return res.json();
       })
-      .then((data) => {
-      });
+      .then((data) => {});
 
     return results;
   },

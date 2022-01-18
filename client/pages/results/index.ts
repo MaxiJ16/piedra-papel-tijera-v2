@@ -12,12 +12,12 @@ class Results extends HTMLElement {
     buttonEl.addEventListener("click", () => {
       if (cs.user2Name == "") {
         state.restart();
-        Router.go("/waiting-opp")
+        Router.go("/waiting-opp");
       }
 
       if (cs.user1Name == "") {
         state.restart();
-        Router.go("/waiting-opp")
+        Router.go("/waiting-opp");
       }
     });
   }

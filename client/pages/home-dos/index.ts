@@ -2,12 +2,11 @@ import { Router } from "@vaadin/router";
 import { state } from "../../state";
 
 class HomeDos extends HTMLElement {
-  // connectedCallback es el cb q tenemos que usar en los custom-elements para escribir de forma segura
   connectedCallback() {
-    //aca seteamos al html
     this.render();
   }
   listener() {
+    const cs = state.getState();
     const newGameButtonEl = document.querySelector(".welcome__button-newGame");
     const enterRoomButtonEl = document.querySelector(
       ".welcome__button-enterRoom"
@@ -28,7 +27,12 @@ class HomeDos extends HTMLElement {
 
     // formulario de nuevo juego (user 1)
 
-    const formNewGame = document.querySelector(".newGame__form");
+    const formNewGame = document.querySelector(".newGame__form") as any;
+    const errorEl = document.querySelector(".error") as any;
+    const errorbtn = document.querySelector(".error-btn") as any;
+
+    errorEl.style.display = "none";
+    errorbtn.style.display = "none";
 
     formNewGame.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -37,19 +41,40 @@ class HomeDos extends HTMLElement {
 
       state.setUser1Name(name);
       state.signIn((err) => {
-        if (err) console.error("hubo un error en el signIn");
+        if (err) {
+          console.error("hubo un error en el signIn");
+        }
         state.askNewRoom(() => {
           state.accessToRoom(() => {
-            Router.go("/share-code");
+            if (window.location.pathname == "/home" && cs.user1Id) {
+              Router.go("/share-code");
+            }
           });
         });
       });
+
+      if (
+        cs.registerMessage == "user not found" &&
+        !cs.user1Id &&
+        location.pathname == "/home"
+      ) {
+        errorEl.style.display = "initial";
+        errorbtn.style.display = "initial";
+        formNewGame.style.display = "none";
+
+        errorbtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (location.pathname == "/home") {
+            Router.go("/register");
+          }
+        });
+      }
     });
 
-    // botón de ingresar a una sala
-
     enterRoomButtonEl.addEventListener("click", () => {
-      Router.go("/access-room");
+      if (location.pathname == "/home") {
+        Router.go("/access-room");
+      }
     });
   }
   render() {
@@ -71,6 +96,9 @@ class HomeDos extends HTMLElement {
             <button class="newGame__form-button">Empezar</button>
           </form>
         </div>
+
+        <my-text class="error">No hay un usuario registrado con ese nombre</my-text>
+        <my-button class="error-btn">Ir al registro</my-button>
 
         <div class="welcome__hands">
           <my-hands></my-hands> 

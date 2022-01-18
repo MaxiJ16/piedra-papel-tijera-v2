@@ -3,9 +3,7 @@ import { Router } from "@vaadin/router";
 import { state } from "../../state";
 
 class Home extends HTMLElement {
-  // connectedCallback es el cb q tenemos que usar en los custom-elements para escribir de forma segura
   connectedCallback() {
-    //aca seteamos al html
     this.render();
     
     const selectYes = document.querySelector(".yes");
