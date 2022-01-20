@@ -16,13 +16,11 @@ app.use(express.json());
 app.use(express.static("dist"));
 app.use(cors());
 
-
 app.get("/env", (req, res) => {
   res.json({
     environment: process.env.NODE_ENV,
   });
 });
-
 
 // zona de producción
 
@@ -158,15 +156,13 @@ app.post("/rooms", (req, res) => {
 
 // /room/:id
 
-// /rooms/:roomId?userid=1234: por último, este endpoint va a recibir el id “amigable” (AAFF)
+// /rooms/:roomId?userid=1234: , este endpoint va a recibir el id “amigable” (AAFF)
 // y va devolver el id complejo (el de la RTDB) y la data del room.
 // Además va a exigir que un userId válido acompañe el request.
 
 app.get("/rooms/:roomId", (req, res) => {
   // recibe un roomid amigable de params
   const { roomId } = req.params;
-  // además va a recibir un parametro adicional que va a ser el id del usuario que quiere obtener eso para que sea seguro
-  // recibe una queryparams, de req.query obtenemos el userId
   const { userId } = req.query;
 
   userCollection
@@ -174,8 +170,7 @@ app.get("/rooms/:roomId", (req, res) => {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        // buscamos en firestore en la roomCollection
-        // le decimos a la roomCollection que queremos el doc que tenga este id
+        // buscamos en firestore en la roomCollection el doc con ese id
         roomCollection
           .doc(roomId)
           .get()
@@ -231,7 +226,6 @@ app.post("/rooms/:roomId", (req, res) => {
     });
 });
 
-
 // le indicamos una ruta especial al archivo
 app.get("*", (req, res) => {
   const pathResolve = path.resolve("", "dist/index.html");
@@ -239,5 +233,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server on: http://localhost:${port}`);  
+  console.log(`Server on: http://localhost:${port}`);
 });

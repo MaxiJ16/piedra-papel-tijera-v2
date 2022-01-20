@@ -1,12 +1,11 @@
 import { Router } from "@vaadin/router";
-import { state } from "../../state";
 
 class Play extends HTMLElement {
   connectedCallback() {
     this.render();
 
     setTimeout(() => {
-      Router.go("/play-dos");
+      Router.go("/play-hands");
     }, 4200);
   }
 

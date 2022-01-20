@@ -28,8 +28,6 @@ export class UserHands extends HTMLElement {
     <img class="tijera" src=${tijeraImg}>
     `;
 
-    
-
     const style = document.createElement("style");
     style.innerHTML = `
       .container {
@@ -62,6 +60,12 @@ export class UserHands extends HTMLElement {
     this.shadow.appendChild(style);
     this.shadow.appendChild(div);
 
+    if (cs.user1Name == "" && cs.currentGame.user2Move == "") {
+      state.setMoveUser2("");
+    } else if (cs.user2Name == "" && cs.currentGame.user1Move == "") {
+      state.setMoveUser1("");
+    }
+    
     const piedra = div.querySelector(".piedra");
     piedra.addEventListener("click", () => {
       style.innerHTML = `

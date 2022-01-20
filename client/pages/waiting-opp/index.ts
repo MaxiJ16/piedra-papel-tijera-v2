@@ -40,8 +40,8 @@ class WaitingOpp extends HTMLElement {
     this.innerHTML = `
     <header class="waitingOpp-header">
       <div class="header-names">
-        <my-text tag="h5">${state.data.dataRtdb[0].name} </my-text>
-        <my-text class="opponent-name" tag="h5">${state.data.dataRtdb[1].name}</my-text>
+        <my-text tag="h5">${state.data.dataRtdb[0].name }: ${ state.data.history.user1} </my-text>
+        <my-text class="opponent-name" tag="h5">${state.data.dataRtdb[1].name }: ${ state.data.history.user2}</my-text>
       </div>
       <div class="waitingOpp-rooms">
         <my-text tag="h5">Sala</my-text>

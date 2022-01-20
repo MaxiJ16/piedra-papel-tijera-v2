@@ -34,5 +34,5 @@
 }
 
 .opponent-name {
-  color: #ff6442;
+  color: var(--color-opponent-name);
 }

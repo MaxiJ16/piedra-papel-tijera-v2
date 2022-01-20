@@ -1,6 +1,6 @@
 .waitingOpp {
   height: 86vh;
-  padding: 140px 31px 0 20px;
+  padding: 120px 31px 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -32,3 +32,6 @@
   display: none;
 }
 
+.instructions__btn {
+  margin-top: 40px;
+}
