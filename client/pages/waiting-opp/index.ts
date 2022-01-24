@@ -5,7 +5,8 @@ class WaitingOpp extends HTMLElement {
   connectedCallback() {
     this.render();
     const cs = state.getState();
-
+    state.accessToRoom();
+    
     const text = document.querySelector(".text") as any;
     const text2 = document.querySelector(".text2") as any;
     const buttonEl = document.querySelector(".instructions__btn") as any;
@@ -27,10 +28,18 @@ class WaitingOpp extends HTMLElement {
     state.subscribe(() => {
       const cs = state.getState();
 
-      if (location.pathname == "/waiting-opp" && cs.dataRtdb[0].start == false || cs.dataRtdb[1].start == false) {
+      if (
+        (location.pathname == "/waiting-opp" &&
+          cs.dataRtdb[0].start == false) ||
+        cs.dataRtdb[1].start == false
+      ) {
         console.error("Falta que el otro jugador presione start");
       }
-      if (cs.dataRtdb[0].start == true && cs.dataRtdb[1].start == true && location.pathname == "/waiting-opp") {
+      if (
+        cs.dataRtdb[0].start == true &&
+        cs.dataRtdb[1].start == true &&
+        location.pathname == "/waiting-opp"
+      ) {
         Router.go("/play");
       }
     });
@@ -40,8 +49,8 @@ class WaitingOpp extends HTMLElement {
     this.innerHTML = `
     <header class="waitingOpp-header">
       <div class="header-names">
-        <my-text tag="h5">${state.data.dataRtdb[0].name }: ${ state.data.history.user1} </my-text>
-        <my-text class="opponent-name" tag="h5">${state.data.dataRtdb[1].name }: ${ state.data.history.user2}</my-text>
+        <my-text tag="h5">${state.data.dataRtdb[0].name}: ${state.data.history.user1} </my-text>
+        <my-text class="opponent-name" tag="h5">${state.data.dataRtdb[1].name}: ${state.data.history.user2}</my-text>
       </div>
       <div class="waitingOpp-rooms">
         <my-text tag="h5">Sala</my-text>

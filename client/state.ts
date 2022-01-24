@@ -170,7 +170,7 @@ const state = {
         if (callback) callback();
       });
   },
-  listenRoom() {
+  listenRoom(callback?) {
     const cs = this.getState();
     //de la rtdb quiero escuchar una sección dentro de rooms/${rtdbRoomId} y ahí vamos a escribir los msj en el backend
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId);
@@ -183,6 +183,7 @@ const state = {
       cs.dataRtdb = currentsList;
 
       this.setState(currentState);
+      if (callback) callback();
     });
   },
   setPlayer1ValuesRtdb() {

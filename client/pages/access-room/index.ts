@@ -7,7 +7,9 @@ class AccesRoom extends HTMLElement {
     const cs = state.getState();
 
     const enterRoomForm = document.querySelector(".enterRoom__form") as any;
-    const enterSecondPlayerForm = document.querySelector(".enterSecondPlayer__form") as any;
+    const enterSecondPlayerForm = document.querySelector(
+      ".enterSecondPlayer__form"
+    ) as any;
 
     const errorEl = document.querySelector(".error") as any;
     const errorbtn = document.querySelector(".error-btn") as any;
@@ -19,17 +21,26 @@ class AccesRoom extends HTMLElement {
       const nameUser2 = target.nombre.value;
 
       state.setUser2Name(nameUser2);
+
       state.signInUser2((err) => {
         if (err) console.error("hubo un error en el signIn");
-        enterSecondPlayerForm.style.display = "none";
-        enterRoomForm.style.display = "initial";
-      });
+        const cs = state.getState();
+        if (
+          !cs.user2Id ||
+          (cs.user2Id == undefined &&
+            location.pathname == "/access-room" &&
+            cs.registerMessage == "user not found")
+        ) {
+          alert(
+            "No hay un usuario registrado con ese nombre, prueba otro o ingresa al registro"
+          );
+        }
 
-      if(!cs.user2Id || cs.user2Id == undefined && location.pathname == "/access-room" && cs.registerMessage == "user not found"){
-        enterSecondPlayerForm.style.display = "none";
-        errorEl.style.display = "initial";
-        errorbtn.style.display = "initial";
-      }
+        if (cs.user2Id && location.pathname == "/access-room") {
+          enterSecondPlayerForm.style.display = "none";
+          enterRoomForm.style.display = "initial";
+        }
+      });
 
       errorbtn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -48,18 +59,31 @@ class AccesRoom extends HTMLElement {
       cs.roomId = roomIdEl;
 
       state.accessToRoom(() => {
-        state.setPlayer2ValuesRtdb();
-        state.listenRoom();
-
         state.subscribe(() => {
-          if (
-            cs.dataRtdb[0].online == false ||
-            cs.dataRtdb[1].online == false
+          if (cs.dataRtdb[1].userId && location.pathname == "/access-room") {
+            Router.go("/full-room");
+          } else if (
+            !cs.dataRtdb[1].userId &&
+            location.pathname == "/access-room"
           ) {
-            console.error("Some player is not connected");
-          }
-          if (cs.dataRtdb[0].online == true && cs.dataRtdb[1].online == true && window.location.pathname == "/access-room") {
-            Router.go("/waiting-opp");
+            state.setPlayer2ValuesRtdb();
+            state.listenRoom();
+
+            state.subscribe(() => {
+              if (
+                cs.dataRtdb[0].online == false ||
+                cs.dataRtdb[1].online == false
+              ) {
+                console.error("Some player is not connected");
+              }
+              if (
+                cs.dataRtdb[0].online == true &&
+                cs.dataRtdb[1].online == true &&
+                window.location.pathname == "/access-room"
+              ) {
+                Router.go("/waiting-opp");
+              }
+            });
           }
         });
       });
@@ -79,9 +103,6 @@ class AccesRoom extends HTMLElement {
             <input class="input enterSecondPlayer-input" required name="nombre"/>
             <button class="enterSecondPlayer-button button">Empezar</button>
           </form>
-
-          <my-text class="error">No hay un usuario registrado con ese nombre</my-text>
-          <my-button class="error-btn">Ir al registro</my-button>
 
           <form class="enterRoom__form">
             <input class="input enterRoom__form-input" placeholder="código" name="roomId">

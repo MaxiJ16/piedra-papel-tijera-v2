@@ -40,10 +40,21 @@ class HomeDos extends HTMLElement {
       const name = target.nombre.value;
 
       state.setUser1Name(name);
+
       state.signIn((err) => {
         if (err) {
           console.error("hubo un error en el signIn");
         }
+        if (
+          cs.registerMessage == "user not found" &&
+          !cs.user1Id &&
+          location.pathname == "/home"
+        ) {
+          alert(
+            "No hay un usuario registrado con ese nombre, prueba otro o ingresa al registro"
+          );
+        }
+
         state.askNewRoom(() => {
           state.accessToRoom(() => {
             if (window.location.pathname == "/home" && cs.user1Id) {
@@ -52,23 +63,6 @@ class HomeDos extends HTMLElement {
           });
         });
       });
-
-      if (
-        cs.registerMessage == "user not found" &&
-        !cs.user1Id &&
-        location.pathname == "/home"
-      ) {
-        errorEl.style.display = "initial";
-        errorbtn.style.display = "initial";
-        formNewGame.style.display = "none";
-
-        errorbtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          if (location.pathname == "/home") {
-            Router.go("/register");
-          }
-        });
-      }
     });
 
     enterRoomButtonEl.addEventListener("click", () => {
