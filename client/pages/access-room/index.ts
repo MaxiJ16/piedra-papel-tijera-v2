@@ -41,13 +41,6 @@ class AccesRoom extends HTMLElement {
           enterRoomForm.style.display = "initial";
         }
       });
-
-      errorbtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (location.pathname == "/access-room") {
-          Router.go("/register");
-        }
-      });
     });
 
     // formulario de ingresar a una sala

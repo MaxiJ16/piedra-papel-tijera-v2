@@ -28,12 +28,7 @@ class HomeDos extends HTMLElement {
     // formulario de nuevo juego (user 1)
 
     const formNewGame = document.querySelector(".newGame__form") as any;
-    const errorEl = document.querySelector(".error") as any;
-    const errorbtn = document.querySelector(".error-btn") as any;
-
-    errorEl.style.display = "none";
-    errorbtn.style.display = "none";
-
+    
     formNewGame.addEventListener("submit", (e) => {
       e.preventDefault();
       const target = e.target as any;
@@ -90,9 +85,6 @@ class HomeDos extends HTMLElement {
             <button class="newGame__form-button">Empezar</button>
           </form>
         </div>
-
-        <my-text class="error">No hay un usuario registrado con ese nombre</my-text>
-        <my-button class="error-btn">Ir al registro</my-button>
 
         <div class="welcome__hands">
           <my-hands></my-hands> 
