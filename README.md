@@ -1,4 +1,4 @@
-# Piedra, pPapel o Tijera Multijugador
+# Piedra, Papel o Tijera Multijugador
 
 POSTMAN
 https://documenter.getpostman.com/view/15124189/UVXoktKa
