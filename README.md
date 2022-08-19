@@ -1,7 +1,12 @@
-# Piedra, Papel o Tijera Multijugador
+# WebApp para jugar Piedra, Papel o Tijera Multijugador
+
+Cree una API Rest que me permite generar game rooms. Para esto utilicé Firebase Realtime Database para mantener la comunicación entre los jugadores.
+El servidor es en Heroku.
+
+**Link**
+https://piedra-papel-tijera-mod6.herokuapp.com
 
 POSTMAN
 https://documenter.getpostman.com/view/15124189/UVXoktKa
 
-HEROKU
-https://piedra-papel-tijera-mod6.herokuapp.com
+
