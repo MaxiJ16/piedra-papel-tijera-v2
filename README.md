@@ -5,7 +5,7 @@
 - El servidor es Railway.
 
 **LINK**
-https://piedra-papel-tijera-v2-production.up.railway.app/
+https://piedra-papel-tijera.onrender.com/
 
 POSTMAN
 https://documenter.getpostman.com/view/15124189/UVXoktKa
