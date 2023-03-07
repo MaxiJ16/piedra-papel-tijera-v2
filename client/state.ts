@@ -1,7 +1,7 @@
 type Jugada = "piedra" | "papel" | "tijera" | "";
 
 const API_BASE_URL =
-  "https://piedra-papel-tijera-v2-production.up.railway.app" || "http://localhost:3000";
+  "https://piedra-papel-tijera.onrender.com" || "http://localhost:3000";
 
 import { rtdb } from "./rtdb";
 
