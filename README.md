@@ -2,12 +2,12 @@
 
 - Creé una API Rest que me permite generar game rooms. 
 - Para esto utilicé Firebase Realtime Database para mantener la comunicación entre los jugadores.
-- El servidor es Railway.
+- El servidor es Render.
 
 **LINK**
 https://piedra-papel-tijera.onrender.com/
 
-POSTMAN
+**POSTMAN**
 https://documenter.getpostman.com/view/15124189/UVXoktKa
 
 
