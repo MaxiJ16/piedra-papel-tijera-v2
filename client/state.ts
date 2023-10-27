@@ -1,10 +1,8 @@
 type Jugada = "piedra" | "papel" | "tijera" | "";
 
-const API_BASE_URL =
-  "https://piedra-papel-tijera.onrender.com" || "http://localhost:3000";
+const API_BASE_URL = "https://piedra-papel-tijera.onrender.com" || "http://localhost:3000";
 
 import { rtdb } from "./rtdb";
-
 import map from "lodash/map";
 
 const state = {
@@ -123,7 +121,6 @@ const state = {
   },
   askNewRoom(callback?) {
     const cs = this.getState();
-    // si tiene userId
     if (cs.user1Id) {
       fetch(API_BASE_URL + "/rooms", {
         method: "post",
@@ -133,20 +130,16 @@ const state = {
         body: JSON.stringify({ userId: cs.user1Id }),
       })
         .then((res) => {
-          // pasamos la res de la api a json, sino es un texto
           return res.json();
         })
         .then((data) => {
-          // data nos va a traer el id sencillo que nos devuelve /rooms
           cs.roomId = data.id;
           this.setState(cs);
-          // tmb recibimos un callback porque queremos avisar que el newRoom está creado para que vaya otra vez a la APi a pedirle el id complejo
           if (callback) {
             callback();
           }
         });
     }
-    // si no tiene userId
     else {
       console.error("no hay userId");
     }
@@ -155,33 +148,26 @@ const state = {
     const cs = this.getState();
     const roomId = cs.roomId;
     const userId = cs.user1Id || cs.user2Id;
-    // invocamos el fetch a la api /room/ (lo que me pasen como parametro) y ademas nos pide que le agreguemos el userId
-    // el método get es por defecto así que no hace falta aclarar el method
     fetch(API_BASE_URL + "/rooms/" + roomId + "?userId=" + userId)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        // data nos va a traer el id largo de la rtdb, lo guardamos en el state
         cs.rtdbRoomId = data.rtdbRoomId;
         this.setState(cs);
-        // y nos conectamos a ese room
         this.listenRoom();
         if (callback) callback();
       });
   },
   listenRoom(callback?) {
     const cs = this.getState();
-    //de la rtdb quiero escuchar una sección dentro de rooms/${rtdbRoomId} y ahí vamos a escribir los msj en el backend
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId);
+    
     roomsRef.on("value", (snapshot) => {
       const currentState = this.getState();
       const currentGameFromServer = snapshot.val();
-      // cada vez que haya un cambio vamos a traernos del server solo la parte de currentGameFromServer y la vamos a guardar en el state
-      // primero lo tenemos que mapear
       const currentsList = map(currentGameFromServer.currentGame);
       cs.dataRtdb = currentsList;
-
       this.setState(currentState);
       if (callback) callback();
     });
@@ -260,7 +246,6 @@ const state = {
   },
   setMoveUser1(move: Jugada) {
     const cs = this.getState();
-
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
 
     if (cs.user1Name) {
@@ -280,7 +265,6 @@ const state = {
   },
   setMoveUser2(move: Jugada) {
     const cs = this.getState();
-
     const roomsRef = rtdb.ref("/rooms/" + cs.rtdbRoomId + "/currentGame");
 
     if (cs.user2Name) {
