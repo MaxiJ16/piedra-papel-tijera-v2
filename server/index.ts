@@ -55,7 +55,7 @@ app.post("/auth", (req, res) => {
   userCollection
     .where("nombre", "==", nombre)
     .get()
-    .then((searchResponse) => 
+    .then((searchResponse) => {
       if (searchResponse.empty) {
         res.status(404).json({
           message: "user not found",
